@@ -18,14 +18,14 @@ a {
   color: inherit;
 }
 
-/* ── 헤더 ── */
+/* ?�?� ?�더 ?�?� */
 header {
   position: sticky;
   top: 0;
   z-index: 100;
   background: #fffdf5;
-  border-bottom: 1px solid #e8d89a;
-  box-shadow: 0 2px 12px rgba(180, 140, 30, 0.1);
+  border-bottom: 1px solid #d4bfaa;
+  box-shadow: 0 2px 12px rgba(140, 100, 70, 0.1);
 }
 
 .header-inner {
@@ -64,7 +64,7 @@ nav a {
 
 nav a:hover,
 nav a.active {
-  color: #c9a84c;
+  color: #A0785A;
 }
 
 nav a.active::after {
@@ -74,7 +74,7 @@ nav a.active::after {
   left: 0;
   right: 0;
   height: 2px;
-  background: #c9a84c;
+  background: #A0785A;
   border-radius: 2px;
 }
 
@@ -87,14 +87,14 @@ nav a.active::after {
 }
 
 .cart-icon:hover {
-  color: #c9a84c;
+  color: #A0785A;
 }
 
 .cart-count {
   position: absolute;
   top: -8px;
   right: -10px;
-  background: #c9a84c;
+  background: #A0785A;
   color: #fff;
   font-size: 0.7rem;
   font-weight: 700;
@@ -106,9 +106,9 @@ nav a.active::after {
   justify-content: center;
 }
 
-/* ── 배너 ── */
+/* ?�?� 배너 ?�?� */
 .banner {
-  background: linear-gradient(135deg, #1a1505 0%, #3d3010 50%, #6b5a20 100%);
+  background: linear-gradient(135deg, #2c1a0e 0%, #4a2e1a 50%, #7a5238 100%);
   min-height: 480px;
   display: flex;
   align-items: center;
@@ -121,7 +121,7 @@ nav a.active::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 70% 50%, rgba(201, 168, 76, 0.15) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 70% 50%, rgba(160, 120, 90, 0.15) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -137,7 +137,7 @@ nav a.active::after {
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 4px;
-  color: #c9a84c;
+  color: #A0785A;
   margin-bottom: 1rem;
 }
 
@@ -149,11 +149,11 @@ nav a.active::after {
   margin-bottom: 2rem;
 }
 
-/* ── 버튼 ── */
+/* ?�?� 버튼 ?�?� */
 .btn-main {
   display: inline-block;
-  background: linear-gradient(135deg, #c9a84c 0%, #e0c46a 100%);
-  color: #1a1505;
+  background: linear-gradient(135deg, #A0785A 0%, #C4956A 100%);
+  color: #2c1a0e;
   font-size: 0.95rem;
   font-weight: 700;
   padding: 0.85rem 2.2rem;
@@ -165,21 +165,21 @@ nav a.active::after {
 }
 
 .btn-main:hover {
-  background: linear-gradient(135deg, #b8963e 0%, #c9a84c 100%);
-  color: #1a1505;
+  background: linear-gradient(135deg, #8B6545 0%, #A0785A 100%);
+  color: #2c1a0e;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
+  box-shadow: 0 6px 20px rgba(160, 120, 90, 0.4);
 }
 
 .btn-outline {
   display: inline-block;
   background: transparent;
-  color: #c9a84c;
+  color: #A0785A;
   font-size: 0.95rem;
   font-weight: 600;
   padding: 0.85rem 2.2rem;
   border-radius: 50px;
-  border: 2px solid #c9a84c;
+  border: 2px solid #A0785A;
   cursor: pointer;
   transition: all 0.25s;
   font-family: inherit;
@@ -187,8 +187,8 @@ nav a.active::after {
 }
 
 .btn-outline:hover {
-  background: #c9a84c;
-  color: #1a1505;
+  background: #A0785A;
+  color: #2c1a0e;
 }
 
 .btn-full {
@@ -197,7 +197,7 @@ nav a.active::after {
   margin-top: 0.75rem;
 }
 
-/* ── 상품 섹션 ── */
+/* ?�?� ?�품 ?�션 ?�?� */
 .products-section {
   max-width: 1200px;
   margin: 0 auto;
@@ -218,20 +218,20 @@ nav a.active::after {
   gap: 2rem;
 }
 
-/* ── 상품 카드 ── */
+/* ?�?� ?�품 카드 ?�?� */
 .product-card {
   background: #fffdf5;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(180, 140, 30, 0.1);
+  box-shadow: 0 2px 12px rgba(140, 100, 70, 0.1);
   transition: transform 0.25s, box-shadow 0.25s;
   cursor: pointer;
-  border: 1px solid #f0e4a8;
+  border: 1px solid #e8d0bc;
 }
 
 .product-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(180, 140, 30, 0.18);
+  box-shadow: 0 12px 30px rgba(140, 100, 70, 0.18);
 }
 
 .product-thumb {
@@ -254,8 +254,8 @@ nav a.active::after {
   letter-spacing: 1px;
   padding: 0.25rem 0.6rem;
   border-radius: 4px;
-  background: #fdf5d8;
-  color: #b8963e;
+  background: #fdf0e8;
+  color: #8B6545;
   margin-bottom: 0.5rem;
 }
 
@@ -276,7 +276,7 @@ nav a.active::after {
 .product-price {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #b8963e;
+  color: #8B6545;
   margin-bottom: 1rem;
 }
 
@@ -290,8 +290,8 @@ nav a.active::after {
 .btn-add-cart {
   width: 100%;
   padding: 0.7rem;
-  background: linear-gradient(135deg, #c9a84c 0%, #e0c46a 100%);
-  color: #1a1505;
+  background: linear-gradient(135deg, #A0785A 0%, #C4956A 100%);
+  color: #2c1a0e;
   border: none;
   border-radius: 10px;
   font-size: 0.9rem;
@@ -302,11 +302,11 @@ nav a.active::after {
 }
 
 .btn-add-cart:hover {
-  background: linear-gradient(135deg, #b8963e 0%, #c9a84c 100%);
-  box-shadow: 0 4px 14px rgba(201, 168, 76, 0.35);
+  background: linear-gradient(135deg, #8B6545 0%, #A0785A 100%);
+  box-shadow: 0 4px 14px rgba(160, 120, 90, 0.35);
 }
 
-/* ── 장바구니 페이지 ── */
+/* ?�?� ?�바구니 ?�이지 ?�?� */
 .cart-page {
   max-width: 1100px;
   margin: 0 auto;
@@ -333,8 +333,8 @@ nav a.active::after {
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  box-shadow: 0 2px 10px rgba(180, 140, 30, 0.08);
-  border: 1px solid #f0e4a8;
+  box-shadow: 0 2px 10px rgba(140, 100, 70, 0.08);
+  border: 1px solid #e8d0bc;
 }
 
 .cart-item-thumb {
@@ -362,7 +362,7 @@ nav a.active::after {
 .cart-item-price {
   font-size: 1rem;
   font-weight: 700;
-  color: #b8963e;
+  color: #8B6545;
 }
 
 .cart-item-controls {
@@ -375,7 +375,7 @@ nav a.active::after {
 .qty-btn {
   width: 28px;
   height: 28px;
-  border: 1px solid #e8d89a;
+  border: 1px solid #d4bfaa;
   background: #fffdf5;
   border-radius: 6px;
   cursor: pointer;
@@ -387,7 +387,7 @@ nav a.active::after {
 }
 
 .qty-btn:hover {
-  background: #fdf5d8;
+  background: #fdf0e8;
 }
 
 .qty-num {
@@ -411,7 +411,7 @@ nav a.active::after {
   color: #e53e3e;
 }
 
-/* 장바구니 비어있을 때 */
+/* ?�바구니 비어?�을 ??*/
 .cart-empty {
   text-align: center;
   padding: 5rem 2rem;
@@ -420,7 +420,7 @@ nav a.active::after {
 
 .cart-empty i {
   font-size: 4rem;
-  color: #e8d89a;
+  color: #d4bfaa;
   margin-bottom: 1rem;
 }
 
@@ -430,13 +430,13 @@ nav a.active::after {
   margin-bottom: 1.5rem;
 }
 
-/* 주문 요약 */
+/* 주문 ?�약 */
 .cart-summary {
   background: #fffdf5;
   border-radius: 16px;
   padding: 1.8rem;
-  box-shadow: 0 2px 12px rgba(180, 140, 30, 0.1);
-  border: 1px solid #f0e4a8;
+  box-shadow: 0 2px 12px rgba(140, 100, 70, 0.1);
+  border: 1px solid #e8d0bc;
   position: sticky;
   top: 88px;
 }
@@ -446,7 +446,7 @@ nav a.active::after {
   font-weight: 700;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #f0e4a8;
+  border-bottom: 1px solid #e8d0bc;
   color: #2c2010;
 }
 
@@ -464,19 +464,19 @@ nav a.active::after {
   color: #2c2010;
   padding-top: 1rem;
   margin-top: 0.5rem;
-  border-top: 1px solid #f0e4a8;
+  border-top: 1px solid #e8d0bc;
 }
 
-/* ── 푸터 ── */
+/* ?�?� ?�터 ?�?� */
 footer {
-  background: #1a1505;
-  color: rgba(255, 235, 150, 0.4);
+  background: #2c1a0e;
+  color: rgba(255, 220, 190, 0.4);
   text-align: center;
   padding: 2rem;
   font-size: 0.85rem;
 }
 
-/* ── 반응형 ── */
+/* ?�?� 반응???�?� */
 @media (max-width: 768px) {
   .banner-text h1 {
     font-size: 2rem;
