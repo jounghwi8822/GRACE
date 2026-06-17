@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>장바구니 — GRACE</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <div class="header-inner">
+      <div class="logo"><a href="index.html">GRACE</a></div>
+      <nav>
+        <a href="index.html">홈</a>
+        <a href="#">신상품</a>
+        <a href="#">베스트</a>
+        <a href="#">세일</a>
+      </nav>
+      <a href="cart.html" class="cart-icon active">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- 장바구니 내용 -->
+  <main class="cart-page">
+    <h2 class="section-title">장바구니</h2>
+
+    <div class="cart-container">
+      <!-- 상품 목록 -->
+      <div class="cart-items" id="cart-items">
+        <!-- JS로 채워짐 -->
+      </div>
+
+      <!-- 비어있을 때 -->
+      <div class="cart-empty" id="cart-empty" style="display:none;">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <p>장바구니가 비어있어요</p>
+        <a href="index.html" class="btn-main">쇼핑 계속하기</a>
+      </div>
+
+      <!-- 결제 요약 -->
+      <div class="cart-summary" id="cart-summary">
+        <h3>주문 요약</h3>
+        <div class="summary-row">
+          <span>상품 금액</span>
+          <span id="subtotal">0원</span>
+        </div>
+        <div class="summary-row">
+          <span>배송비</span>
+          <span id="shipping">무료</span>
+        </div>
+        <div class="summary-row total">
+          <span>총 결제 금액</span>
+          <span id="total">0원</span>
+        </div>
+        <button class="btn-main btn-full">구매하기</button>
+        <a href="index.html" class="btn-outline btn-full">쇼핑 계속하기</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- 푸터 -->
+  <footer>
+    <p>© 2026 GRACE. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

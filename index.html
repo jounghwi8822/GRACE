@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GRACE</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">GRACE</div>
+      <nav>
+        <a href="index.html" class="active">홈</a>
+        <a href="#">신상품</a>
+        <a href="#">베스트</a>
+        <a href="#">세일</a>
+      </nav>
+      <a href="cart.html" class="cart-icon">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- 배너 -->
+  <section class="banner">
+    <div class="banner-text">
+      <p class="banner-sub">2026 NEW ARRIVAL</p>
+      <h1>새로운 컬렉션을<br>만나보세요</h1>
+      <a href="#products" class="btn-main">쇼핑하기</a>
+    </div>
+  </section>
+
+  <!-- 상품 목록 -->
+  <section class="products-section" id="products">
+    <h2 class="section-title">인기 상품</h2>
+    <div class="product-grid" id="product-grid"></div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer>
+    <p>© 2026 GRACE. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
