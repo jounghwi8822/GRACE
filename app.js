@@ -82,6 +82,15 @@ const products = [
   }
 ];
 
+// 관리자 계정
+const ADMIN = { email: 'admin@grace.com', password: 'Gracemanager@2020' };
+
+// 전체 상품 (기본 + 관리자가 추가한 상품)
+function getAdminProducts() {
+  const custom = JSON.parse(localStorage.getItem('grace_custom_products') || '[]');
+  return [...products, ...custom];
+}
+
 // 장바구니 불러오기
 function getCart() {
   return JSON.parse(localStorage.getItem('cart') || '[]');
@@ -111,7 +120,8 @@ function renderProducts() {
   const grid = document.getElementById('product-grid');
   if (!grid) return;
 
-  grid.innerHTML = products.map(p => `
+  const allProducts = getAdminProducts();
+  grid.innerHTML = allProducts.map(p => `
     <div class="product-card">
       <div class="product-thumb" style="background:${p.color}">
         ${p.emoji}
@@ -134,7 +144,7 @@ function renderProducts() {
 
 // 장바구니에 상품 추가
 function addToCart(productId) {
-  const product = products.find(p => p.id === productId);
+  const product = getAdminProducts().find(p => p.id === productId);
   if (!product) return;
 
   const cart = getCart();
@@ -235,14 +245,22 @@ function checkAuth() {
   const authButtons = document.getElementById('auth-buttons');
   const userInfo = document.getElementById('user-info');
   const userName = document.getElementById('user-name');
+  const adminLink = document.getElementById('admin-link');
 
   if (logged) {
     if (authButtons) authButtons.style.display = 'none';
     if (userInfo) userInfo.style.display = 'flex';
-    if (userName) userName.textContent = logged.name + '님';
+    if (userName) {
+      const isAdmin = logged.email === ADMIN.email;
+      userName.textContent = isAdmin ? '관리자' : logged.name + '님';
+    }
+    if (adminLink) {
+      adminLink.style.display = logged.email === ADMIN.email ? 'inline-flex' : 'none';
+    }
   } else {
     if (authButtons) authButtons.style.display = 'flex';
     if (userInfo) userInfo.style.display = 'none';
+    if (adminLink) adminLink.style.display = 'none';
   }
 }
 

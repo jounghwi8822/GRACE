@@ -84,6 +84,13 @@
       const password = document.getElementById('password').value;
       const errorMsg = document.getElementById('error-msg');
 
+      // 관리자 계정 체크
+      if (email === ADMIN.email && password === ADMIN.password) {
+        localStorage.setItem('grace_logged_in', JSON.stringify({ name: '관리자', email: ADMIN.email }));
+        window.location.href = 'admin.html';
+        return;
+      }
+
       const users = JSON.parse(localStorage.getItem('grace_users') || '[]');
       const user = users.find(u => u.email === email && u.password === password);
 

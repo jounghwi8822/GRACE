@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 대시보드 — GRACE</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <div class="header-inner">
+      <div class="logo"><a href="index.html">GRACE</a></div>
+      <nav>
+        <a href="index.html">홈으로</a>
+      </nav>
+      <div class="header-right">
+        <span class="admin-badge"><i class="fa-solid fa-shield-halved"></i> 관리자</span>
+        <button class="btn-logout" onclick="logout()">로그아웃</button>
+        <a href="cart.html" class="cart-icon">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 관리자 대시보드 -->
+  <main class="admin-page">
+
+    <!-- 상단 통계 -->
+    <div class="admin-stats">
+      <div class="stat-card">
+        <i class="fa-solid fa-box-open"></i>
+        <div>
+          <div class="stat-num" id="stat-products">0</div>
+          <div class="stat-label">전체 상품</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fa-solid fa-users"></i>
+        <div>
+          <div class="stat-num" id="stat-users">0</div>
+          <div class="stat-label">가입 회원</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-layout">
+
+      <!-- 상품 추가 폼 -->
+      <div class="admin-form-section">
+        <h3 class="admin-section-title" id="form-title">
+          <i class="fa-solid fa-plus"></i> 상품 추가
+        </h3>
+        <form class="admin-form" id="product-form">
+          <input type="hidden" id="edit-id">
+          <div class="form-group">
+            <label>상품명</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-tag"></i>
+              <input type="text" id="p-name" placeholder="상품 이름" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>설명</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-align-left"></i>
+              <input type="text" id="p-desc" placeholder="상품 설명" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>가격 (원)</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-won-sign"></i>
+              <input type="number" id="p-price" placeholder="예: 39000" required min="0">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>원래 가격 (할인 전, 없으면 빈칸)</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-won-sign"></i>
+              <input type="number" id="p-original" placeholder="예: 55000">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>배지</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-star"></i>
+              <select id="p-badge">
+                <option value="NEW">NEW</option>
+                <option value="BEST">BEST</option>
+                <option value="SALE">SALE</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>이모지 (상품 이미지 대신)</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-face-smile"></i>
+              <input type="text" id="p-emoji" placeholder="예: 👔 👗 👟 👜" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>카드 배경색</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-palette"></i>
+              <input type="color" id="p-color" value="#fef3ec" style="padding: 0.5rem 1rem 0.5rem 2.8rem; height: 46px;">
+            </div>
+          </div>
+          <div class="admin-form-btns">
+            <button type="submit" class="btn-main" id="form-submit-btn">
+              <i class="fa-solid fa-plus"></i> 상품 추가
+            </button>
+            <button type="button" class="btn-outline" id="form-cancel-btn" style="display:none;" onclick="cancelEdit()">
+              취소
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 상품 목록 -->
+      <div class="admin-list-section">
+        <h3 class="admin-section-title">
+          <i class="fa-solid fa-list"></i> 상품 목록
+        </h3>
+        <div class="admin-product-list" id="admin-product-list"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 푸터 -->
+  <footer>
+    <p>© 2026 GRACE. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // 관리자 접근 체크
+    const logged = JSON.parse(localStorage.getItem('grace_logged_in') || 'null');
+    if (!logged || logged.email !== 'admin@grace.com') {
+      alert('관리자만 접근할 수 있습니다.');
+      window.location.href = 'index.html';
+    }
+
+    // 통계 업데이트
+    function updateStats() {
+      const products = getAdminProducts();
+      const users = JSON.parse(localStorage.getItem('grace_users') || '[]');
+      document.getElementById('stat-products').textContent = products.length;
+      document.getElementById('stat-users').textContent = users.length;
+    }
+
+    // 관리자 상품 목록 렌더링
+    function renderAdminProducts() {
+      const list = document.getElementById('admin-product-list');
+      const products = getAdminProducts();
+
+      if (products.length === 0) {
+        list.innerHTML = '<p class="admin-empty">등록된 상품이 없습니다.</p>';
+        return;
+      }
+
+      list.innerHTML = products.map(p => `
+        <div class="admin-product-item">
+          <div class="admin-product-thumb" style="background:${p.color}">${p.emoji}</div>
+          <div class="admin-product-info">
+            <div class="admin-product-name">${p.name}</div>
+            <div class="admin-product-price">${p.price.toLocaleString()}원
+              ${p.originalPrice ? `<span class="admin-original">${p.originalPrice.toLocaleString()}원</span>` : ''}
+            </div>
+            <div class="admin-product-desc">${p.desc}</div>
+          </div>
+          <span class="product-badge">${p.badge}</span>
+          <div class="admin-product-actions">
+            <button class="btn-edit" onclick="startEdit(${p.id})">
+              <i class="fa-solid fa-pen"></i> 수정
+            </button>
+            <button class="btn-delete" onclick="deleteProduct(${p.id})">
+              <i class="fa-solid fa-trash"></i> 삭제
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      updateStats();
+    }
+
+    // 상품 추가/수정 폼 제출
+    document.getElementById('product-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const editId = document.getElementById('edit-id').value;
+      const product = {
+        id: editId ? parseInt(editId) : Date.now(),
+        name: document.getElementById('p-name').value.trim(),
+        desc: document.getElementById('p-desc').value.trim(),
+        price: parseInt(document.getElementById('p-price').value),
+        originalPrice: document.getElementById('p-original').value ? parseInt(document.getElementById('p-original').value) : null,
+        badge: document.getElementById('p-badge').value,
+        emoji: document.getElementById('p-emoji').value.trim(),
+        color: document.getElementById('p-color').value,
+      };
+
+      let customProducts = JSON.parse(localStorage.getItem('grace_custom_products') || '[]');
+
+      if (editId) {
+        const idx = customProducts.findIndex(p => p.id === product.id);
+        if (idx !== -1) customProducts[idx] = product;
+      } else {
+        customProducts.push(product);
+      }
+
+      localStorage.setItem('grace_custom_products', JSON.stringify(customProducts));
+      this.reset();
+      document.getElementById('edit-id').value = '';
+      document.getElementById('form-title').innerHTML = '<i class="fa-solid fa-plus"></i> 상품 추가';
+      document.getElementById('form-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> 상품 추가';
+      document.getElementById('form-cancel-btn').style.display = 'none';
+      document.getElementById('p-color').value = '#fef3ec';
+      renderAdminProducts();
+    });
+
+    // 수정 시작
+    function startEdit(id) {
+      const products = getAdminProducts();
+      const p = products.find(p => p.id === id);
+      if (!p) return;
+
+      document.getElementById('edit-id').value = p.id;
+      document.getElementById('p-name').value = p.name;
+      document.getElementById('p-desc').value = p.desc;
+      document.getElementById('p-price').value = p.price;
+      document.getElementById('p-original').value = p.originalPrice || '';
+      document.getElementById('p-badge').value = p.badge;
+      document.getElementById('p-emoji').value = p.emoji;
+      document.getElementById('p-color').value = p.color;
+      document.getElementById('form-title').innerHTML = '<i class="fa-solid fa-pen"></i> 상품 수정';
+      document.getElementById('form-submit-btn').innerHTML = '<i class="fa-solid fa-check"></i> 수정 완료';
+      document.getElementById('form-cancel-btn').style.display = 'inline-block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 수정 취소
+    function cancelEdit() {
+      document.getElementById('product-form').reset();
+      document.getElementById('edit-id').value = '';
+      document.getElementById('form-title').innerHTML = '<i class="fa-solid fa-plus"></i> 상품 추가';
+      document.getElementById('form-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> 상품 추가';
+      document.getElementById('form-cancel-btn').style.display = 'none';
+      document.getElementById('p-color').value = '#fef3ec';
+    }
+
+    // 상품 삭제
+    function deleteProduct(id) {
+      if (!confirm('이 상품을 삭제할까요?')) return;
+      let customProducts = JSON.parse(localStorage.getItem('grace_custom_products') || '[]');
+      customProducts = customProducts.filter(p => p.id !== id);
+      localStorage.setItem('grace_custom_products', JSON.stringify(customProducts));
+      renderAdminProducts();
+    }
+
+    renderAdminProducts();
+  </script>
+</body>
+</html>
