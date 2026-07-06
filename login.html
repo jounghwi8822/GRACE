@@ -65,6 +65,13 @@
         <button type="submit" class="btn-main btn-full btn-auth">로그인</button>
       </form>
 
+      <div class="social-divider"><span>또는</span></div>
+
+      <button type="button" class="btn-google" onclick="signInWithGoogle()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="20" height="20">
+        Google로 로그인
+      </button>
+
       <div class="auth-footer">
         <p>아직 계정이 없으신가요? <a href="signup.html">회원가입</a></p>
       </div>
@@ -76,7 +83,10 @@
     <p>© 2026 GRACE. All rights reserved.</p>
   </footer>
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="app.js"></script>
+  <script src="firebase-init.js"></script>
   <script>
     document.getElementById('login-form').addEventListener('submit', function(e) {
       e.preventDefault();
