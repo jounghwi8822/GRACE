@@ -229,7 +229,31 @@ function removeItem(productId) {
   renderCart();
 }
 
+// 로그인 상태 체크
+function checkAuth() {
+  const logged = JSON.parse(localStorage.getItem('grace_logged_in') || 'null');
+  const authButtons = document.getElementById('auth-buttons');
+  const userInfo = document.getElementById('user-info');
+  const userName = document.getElementById('user-name');
+
+  if (logged) {
+    if (authButtons) authButtons.style.display = 'none';
+    if (userInfo) userInfo.style.display = 'flex';
+    if (userName) userName.textContent = logged.name + '님';
+  } else {
+    if (authButtons) authButtons.style.display = 'flex';
+    if (userInfo) userInfo.style.display = 'none';
+  }
+}
+
+// 로그아웃
+function logout() {
+  localStorage.removeItem('grace_logged_in');
+  window.location.href = 'index.html';
+}
+
 // 초기 실행
 updateCartCount();
+checkAuth();
 renderProducts();
 renderCart();

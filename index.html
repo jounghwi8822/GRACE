@@ -19,10 +19,20 @@
         <a href="#">베스트</a>
         <a href="#">세일</a>
       </nav>
-      <a href="cart.html" class="cart-icon">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span class="cart-count" id="cart-count">0</span>
-      </a>
+      <div class="header-right">
+        <div class="auth-buttons" id="auth-buttons">
+          <a href="login.html" class="btn-login">로그인</a>
+          <a href="signup.html" class="btn-signup">회원가입</a>
+        </div>
+        <div class="user-info" id="user-info" style="display:none;">
+          <span class="user-name" id="user-name"></span>
+          <button class="btn-logout" onclick="logout()">로그아웃</button>
+        </div>
+        <a href="cart.html" class="cart-icon">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </a>
+      </div>
     </div>
   </header>
 

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 — GRACE</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <div class="header-inner">
+      <div class="logo"><a href="index.html">GRACE</a></div>
+      <nav>
+        <a href="index.html">홈</a>
+        <a href="#">신상품</a>
+        <a href="#">베스트</a>
+        <a href="#">세일</a>
+      </nav>
+      <div class="header-right">
+        <div class="auth-buttons" id="auth-buttons">
+          <a href="login.html" class="btn-login">로그인</a>
+          <a href="signup.html" class="btn-signup active">회원가입</a>
+        </div>
+        <div class="user-info" id="user-info" style="display:none;">
+          <span class="user-name" id="user-name"></span>
+          <button class="btn-logout" onclick="logout()">로그아웃</button>
+        </div>
+        <a href="cart.html" class="cart-icon">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 회원가입 폼 -->
+  <main class="auth-page">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h2>회원가입</h2>
+        <p>GRACE 멤버가 되어보세요</p>
+      </div>
+
+      <form class="auth-form" id="signup-form">
+        <div class="form-group">
+          <label for="name">이름</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="name" placeholder="이름을 입력하세요" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">이메일</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="email" placeholder="이메일을 입력하세요" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">비밀번호</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="password" placeholder="비밀번호 (6자 이상)" required minlength="6">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password-confirm">비밀번호 확인</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="password-confirm" placeholder="비밀번호를 다시 입력하세요" required>
+          </div>
+        </div>
+
+        <p class="error-msg" id="error-msg"></p>
+
+        <button type="submit" class="btn-main btn-full btn-auth">회원가입</button>
+      </form>
+
+      <div class="auth-footer">
+        <p>이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- 푸터 -->
+  <footer>
+    <p>© 2026 GRACE. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const passwordConfirm = document.getElementById('password-confirm').value;
+      const errorMsg = document.getElementById('error-msg');
+
+      if (password !== passwordConfirm) {
+        errorMsg.textContent = '비밀번호가 일치하지 않습니다.';
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem('grace_users') || '[]');
+      if (users.find(u => u.email === email)) {
+        errorMsg.textContent = '이미 사용 중인 이메일입니다.';
+        return;
+      }
+
+      users.push({ name, email, password });
+      localStorage.setItem('grace_users', JSON.stringify(users));
+      localStorage.setItem('grace_logged_in', JSON.stringify({ name, email }));
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
