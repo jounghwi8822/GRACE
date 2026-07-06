@@ -144,6 +144,15 @@ function renderProducts() {
 
 // 장바구니에 상품 추가
 function addToCart(productId) {
+  // 로그인 체크
+  const logged = JSON.parse(localStorage.getItem('grace_logged_in') || 'null');
+  if (!logged) {
+    if (confirm('로그인이 필요한 서비스입니다.\n로그인 페이지로 이동할까요?')) {
+      window.location.href = 'login.html';
+    }
+    return;
+  }
+
   const product = getAdminProducts().find(p => p.id === productId);
   if (!product) return;
 
