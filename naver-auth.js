@@ -25,9 +25,7 @@ async function checkNaverCallback() {
   history.replaceState(null, '', window.location.pathname);
 
   try {
-    var res = await fetch('https://openapi.naver.com/v1/nid/me', {
-      headers: { 'Authorization': 'Bearer ' + accessToken }
-    });
+    var res = await fetch('/.netlify/functions/naver-profile?token=' + encodeURIComponent(accessToken));
     var data = await res.json();
 
     if (data.response) {
