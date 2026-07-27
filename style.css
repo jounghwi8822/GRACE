@@ -1035,28 +1035,30 @@ footer {
 }
 
 .emoji-picker-collapse.open {
-  max-height: 160px;
+  max-height: 280px;
   opacity: 1;
   margin-top: 0.8rem;
+  padding-bottom: 6px;
 }
 
 .emoji-picker {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
   margin-top: 0.5rem;
+  padding: 4px;
 }
 
 .emoji-btn {
   position: relative;
   aspect-ratio: 1;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   background: linear-gradient(145deg, #fdf6f0, #ecdfd5);
   box-shadow:
-    3px 3px 6px rgba(160, 120, 90, 0.22),
-    -2px -2px 4px rgba(255, 255, 255, 0.9);
-  font-size: 1.05rem;
+    4px 4px 8px rgba(160, 120, 90, 0.22),
+    -3px -3px 6px rgba(255, 255, 255, 0.9);
+  font-size: 1.35rem;
   cursor: pointer;
   transition: all 0.15s ease;
   display: flex;
