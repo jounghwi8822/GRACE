@@ -103,6 +103,36 @@
             <img id="p-image-preview" src="" alt="미리보기" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:12px;margin-top:0.6rem;">
           </div>
           <div class="form-group">
+            <label>이모지 선택 <span style="font-size:0.8rem;color:#9a8860;font-weight:400;">(이미지 없을 때 표시)</span></label>
+            <div class="emoji-picker" id="emoji-picker">
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👔',this)"><span class="emoji-check">✓</span>👔</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👗',this)"><span class="emoji-check">✓</span>👗</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👕',this)"><span class="emoji-check">✓</span>👕</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👚',this)"><span class="emoji-check">✓</span>👚</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('🧥',this)"><span class="emoji-check">✓</span>🧥</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('🥻',this)"><span class="emoji-check">✓</span>🥻</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👘',this)"><span class="emoji-check">✓</span>👘</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('🩱',this)"><span class="emoji-check">✓</span>🩱</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👙',this)"><span class="emoji-check">✓</span>👙</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('🩳',this)"><span class="emoji-check">✓</span>🩳</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('🧣',this)"><span class="emoji-check">✓</span>🧣</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('🧤',this)"><span class="emoji-check">✓</span>🧤</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('🧦',this)"><span class="emoji-check">✓</span>🧦</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👒',this)"><span class="emoji-check">✓</span>👒</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('🧢',this)"><span class="emoji-check">✓</span>🧢</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('🕶️',this)"><span class="emoji-check">✓</span>🕶️</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👟',this)"><span class="emoji-check">✓</span>👟</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👠',this)"><span class="emoji-check">✓</span>👠</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👡',this)"><span class="emoji-check">✓</span>👡</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👢',this)"><span class="emoji-check">✓</span>👢</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👜',this)"><span class="emoji-check">✓</span>👜</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('👛',this)"><span class="emoji-check">✓</span>👛</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('💍',this)"><span class="emoji-check">✓</span>💍</button>
+              <button type="button" class="emoji-btn" onclick="selectEmoji('📿',this)"><span class="emoji-check">✓</span>📿</button>
+            </div>
+            <input type="hidden" id="p-emoji-selected" value="👗">
+          </div>
+          <div class="form-group">
             <label>카드 배경색</label>
             <div class="input-wrap">
               <i class="fa-solid fa-palette"></i>
@@ -200,7 +230,7 @@
         price: parseInt(document.getElementById('p-price').value),
         originalPrice: document.getElementById('p-original').value ? parseInt(document.getElementById('p-original').value) : null,
         badge: document.getElementById('p-badge').value,
-        emoji: '📦',
+        emoji: document.getElementById('p-emoji-selected').value || '👗',
         image: imageData || null,
         color: document.getElementById('p-color').value,
       };
@@ -224,8 +254,17 @@
       document.getElementById('p-image-data').value = '';
       document.getElementById('p-image-file').value = '';
       document.getElementById('p-image-preview').style.display = 'none';
+      document.getElementById('p-emoji-selected').value = '👗';
+      document.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
       renderAdminProducts();
     });
+
+    // 이모지 선택
+    function selectEmoji(emoji, btn) {
+      document.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      document.getElementById('p-emoji-selected').value = emoji;
+    }
 
     // 이미지 파일 선택 시 미리보기
     document.getElementById('p-image-file').addEventListener('change', function() {
@@ -255,6 +294,10 @@
       document.getElementById('p-badge').value = p.badge;
       document.getElementById('p-image-data').value = p.image || '';
       document.getElementById('p-color').value = p.color;
+      document.getElementById('p-emoji-selected').value = p.emoji || '👗';
+      document.querySelectorAll('.emoji-btn').forEach(b => {
+        b.classList.toggle('selected', b.getAttribute('onclick').includes(`'${p.emoji}'`));
+      });
       const preview = document.getElementById('p-image-preview');
       if (p.image) { preview.src = p.image; preview.style.display = 'block'; }
       else { preview.style.display = 'none'; }
@@ -274,6 +317,8 @@
       document.getElementById('p-color').value = '#fef3ec';
       document.getElementById('p-image-data').value = '';
       document.getElementById('p-image-preview').style.display = 'none';
+      document.getElementById('p-emoji-selected').value = '👗';
+      document.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
     }
 
     // 상품 삭제
