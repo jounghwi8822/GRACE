@@ -259,11 +259,16 @@
       renderAdminProducts();
     });
 
-    // 이모지 선택
+    // 이모지 선택 (한 번 더 누르면 취소)
     function selectEmoji(emoji, btn) {
-      document.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      document.getElementById('p-emoji-selected').value = emoji;
+      if (btn.classList.contains('selected')) {
+        btn.classList.remove('selected');
+        document.getElementById('p-emoji-selected').value = '';
+      } else {
+        document.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        document.getElementById('p-emoji-selected').value = emoji;
+      }
     }
 
     // 이미지 파일 선택 시 미리보기
