@@ -1007,6 +1007,39 @@ footer {
 }
 
 /* ── 이모지 피커 ── */
+.btn-emoji-toggle {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #A0785A;
+  background: linear-gradient(145deg, #fdf6f0, #ecdfd5);
+  border: 1.5px solid #e8d0bc;
+  border-radius: 20px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 2px 2px 5px rgba(160,120,90,0.15), -1px -1px 3px rgba(255,255,255,0.9);
+  transition: all 0.2s;
+}
+
+.btn-emoji-toggle:hover {
+  background: linear-gradient(145deg, #ecdfd5, #fdf6f0);
+  box-shadow: inset 2px 2px 4px rgba(160,120,90,0.2), inset -1px -1px 3px rgba(255,255,255,0.7);
+}
+
+.emoji-picker-collapse {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin-top 0.3s ease;
+  margin-top: 0;
+}
+
+.emoji-picker-collapse.open {
+  max-height: 220px;
+  opacity: 1;
+  margin-top: 0.8rem;
+}
+
 .emoji-picker {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
