@@ -97,11 +97,10 @@
             </div>
           </div>
           <div class="form-group">
-            <label>이모지 (상품 이미지 대신)</label>
-            <div class="input-wrap">
-              <i class="fa-solid fa-face-smile"></i>
-              <input type="text" id="p-emoji" placeholder="예: 👔 👗 👟 👜" required>
-            </div>
+            <label>상품 이미지</label>
+            <input type="file" id="p-image-file" accept="image/*" style="padding:0.6rem;border:1.5px solid #e8d0bc;border-radius:12px;width:100%;font-family:inherit;font-size:0.9rem;background:#fffdf8;">
+            <input type="hidden" id="p-image-data">
+            <img id="p-image-preview" src="" alt="미리보기" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:12px;margin-top:0.6rem;">
           </div>
           <div class="form-group">
             <label>카드 배경색</label>
@@ -166,7 +165,7 @@
 
       list.innerHTML = products.map(p => `
         <div class="admin-product-item">
-          <div class="admin-product-thumb" style="background:${p.color}">${p.emoji}</div>
+          <div class="admin-product-thumb" style="background:${p.color}">${p.image ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">` : p.emoji}</div>
           <div class="admin-product-info">
             <div class="admin-product-name">${p.name}</div>
             <div class="admin-product-price">${p.price.toLocaleString()}원
@@ -193,6 +192,7 @@
     document.getElementById('product-form').addEventListener('submit', function(e) {
       e.preventDefault();
       const editId = document.getElementById('edit-id').value;
+      const imageData = document.getElementById('p-image-data').value;
       const product = {
         id: editId ? parseInt(editId) : Date.now(),
         name: document.getElementById('p-name').value.trim(),
@@ -200,7 +200,8 @@
         price: parseInt(document.getElementById('p-price').value),
         originalPrice: document.getElementById('p-original').value ? parseInt(document.getElementById('p-original').value) : null,
         badge: document.getElementById('p-badge').value,
-        emoji: document.getElementById('p-emoji').value.trim(),
+        emoji: '📦',
+        image: imageData || null,
         color: document.getElementById('p-color').value,
       };
 
@@ -220,7 +221,24 @@
       document.getElementById('form-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> 상품 추가';
       document.getElementById('form-cancel-btn').style.display = 'none';
       document.getElementById('p-color').value = '#fef3ec';
+      document.getElementById('p-image-data').value = '';
+      document.getElementById('p-image-file').value = '';
+      document.getElementById('p-image-preview').style.display = 'none';
       renderAdminProducts();
+    });
+
+    // 이미지 파일 선택 시 미리보기
+    document.getElementById('p-image-file').addEventListener('change', function() {
+      const file = this.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('p-image-data').value = e.target.result;
+        const preview = document.getElementById('p-image-preview');
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
     });
 
     // 수정 시작
@@ -235,8 +253,11 @@
       document.getElementById('p-price').value = p.price;
       document.getElementById('p-original').value = p.originalPrice || '';
       document.getElementById('p-badge').value = p.badge;
-      document.getElementById('p-emoji').value = p.emoji;
+      document.getElementById('p-image-data').value = p.image || '';
       document.getElementById('p-color').value = p.color;
+      const preview = document.getElementById('p-image-preview');
+      if (p.image) { preview.src = p.image; preview.style.display = 'block'; }
+      else { preview.style.display = 'none'; }
       document.getElementById('form-title').innerHTML = '<i class="fa-solid fa-pen"></i> 상품 수정';
       document.getElementById('form-submit-btn').innerHTML = '<i class="fa-solid fa-check"></i> 수정 완료';
       document.getElementById('form-cancel-btn').style.display = 'inline-block';
@@ -251,14 +272,23 @@
       document.getElementById('form-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> 상품 추가';
       document.getElementById('form-cancel-btn').style.display = 'none';
       document.getElementById('p-color').value = '#fef3ec';
+      document.getElementById('p-image-data').value = '';
+      document.getElementById('p-image-preview').style.display = 'none';
     }
 
     // 상품 삭제
     function deleteProduct(id) {
       if (!confirm('이 상품을 삭제할까요?')) return;
-      let customProducts = JSON.parse(localStorage.getItem('grace_custom_products') || '[]');
-      customProducts = customProducts.filter(p => p.id !== id);
-      localStorage.setItem('grace_custom_products', JSON.stringify(customProducts));
+      const isBase = products.some(p => p.id === id);
+      if (isBase) {
+        const deletedIds = JSON.parse(localStorage.getItem('grace_deleted_ids') || '[]');
+        if (!deletedIds.includes(id)) deletedIds.push(id);
+        localStorage.setItem('grace_deleted_ids', JSON.stringify(deletedIds));
+      } else {
+        let customProducts = JSON.parse(localStorage.getItem('grace_custom_products') || '[]');
+        customProducts = customProducts.filter(p => p.id !== id);
+        localStorage.setItem('grace_custom_products', JSON.stringify(customProducts));
+      }
       renderAdminProducts();
     }
 

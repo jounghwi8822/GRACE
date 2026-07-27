@@ -85,10 +85,12 @@ const products = [
 // 관리자 계정
 const ADMIN = { email: 'admin@grace.com', password: 'Gracemanager@2020' };
 
-// 전체 상품 (기본 + 관리자가 추가한 상품)
+// 전체 상품 (기본 + 관리자가 추가한 상품, 삭제된 상품 제외)
 function getAdminProducts() {
   const custom = JSON.parse(localStorage.getItem('grace_custom_products') || '[]');
-  return [...products, ...custom];
+  const deletedIds = JSON.parse(localStorage.getItem('grace_deleted_ids') || '[]');
+  const baseFiltered = products.filter(p => !deletedIds.includes(p.id));
+  return [...baseFiltered, ...custom];
 }
 
 // 장바구니 불러오기
@@ -124,7 +126,7 @@ function renderProducts() {
   grid.innerHTML = allProducts.map(p => `
     <div class="product-card">
       <div class="product-thumb" style="background:${p.color}">
-        ${p.emoji}
+        ${p.image ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">` : p.emoji}
       </div>
       <div class="product-info">
         <span class="product-badge">${p.badge}</span>
@@ -162,7 +164,7 @@ function addToCart(productId) {
   if (existing) {
     existing.qty += 1;
   } else {
-    cart.push({ id: product.id, name: product.name, price: product.price, emoji: product.emoji, color: product.color, qty: 1 });
+    cart.push({ id: product.id, name: product.name, price: product.price, emoji: product.emoji, image: product.image || null, color: product.color, qty: 1 });
   }
 
   saveCart(cart);
@@ -203,7 +205,7 @@ function renderCart() {
 
   cartItemsEl.innerHTML = cart.map(item => `
     <div class="cart-item">
-      <div class="cart-item-thumb" style="background:${item.color}">${item.emoji}</div>
+      <div class="cart-item-thumb" style="background:${item.color}">${item.image ? `<img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">` : item.emoji}</div>
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
         <div class="cart-item-price">${formatPrice(item.price)}</div>
