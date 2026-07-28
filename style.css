@@ -1041,6 +1041,40 @@ footer {
   padding-bottom: 6px;
 }
 
+.emoji-category-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 0.7rem;
+}
+
+.emoji-tab {
+  flex: 1;
+  padding: 0.35rem 0;
+  border: 1.5px solid #e8d0bc;
+  border-radius: 8px;
+  background: #fffdf8;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #9a8860;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.emoji-tab.active {
+  background: linear-gradient(135deg, #A0785A, #C4956A);
+  color: #fff;
+  border-color: #A0785A;
+}
+
+.emoji-panel {
+  display: none;
+}
+
+.emoji-panel.active {
+  display: block;
+}
+
 .emoji-picker {
   display: grid;
   grid-template-columns: repeat(6, 1fr);

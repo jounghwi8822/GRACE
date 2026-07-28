@@ -105,31 +105,63 @@
             <input type="hidden" id="p-image-data">
             <img id="p-image-preview" src="" alt="미리보기" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:12px;margin-top:0.6rem;">
             <div class="emoji-picker-collapse" id="emoji-picker-collapse">
-              <div class="emoji-picker" id="emoji-picker">
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👔',this)"><span class="emoji-check">✓</span>👔</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👗',this)"><span class="emoji-check">✓</span>👗</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👕',this)"><span class="emoji-check">✓</span>👕</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👚',this)"><span class="emoji-check">✓</span>👚</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('🧥',this)"><span class="emoji-check">✓</span>🧥</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('🥻',this)"><span class="emoji-check">✓</span>🥻</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👘',this)"><span class="emoji-check">✓</span>👘</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('🩱',this)"><span class="emoji-check">✓</span>🩱</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👙',this)"><span class="emoji-check">✓</span>👙</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('🩳',this)"><span class="emoji-check">✓</span>🩳</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('🧣',this)"><span class="emoji-check">✓</span>🧣</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('🧤',this)"><span class="emoji-check">✓</span>🧤</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('🧦',this)"><span class="emoji-check">✓</span>🧦</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👒',this)"><span class="emoji-check">✓</span>👒</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('🧢',this)"><span class="emoji-check">✓</span>🧢</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('🕶️',this)"><span class="emoji-check">✓</span>🕶️</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👟',this)"><span class="emoji-check">✓</span>👟</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👠',this)"><span class="emoji-check">✓</span>👠</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👡',this)"><span class="emoji-check">✓</span>👡</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👢',this)"><span class="emoji-check">✓</span>👢</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👜',this)"><span class="emoji-check">✓</span>👜</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('👛',this)"><span class="emoji-check">✓</span>👛</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('💍',this)"><span class="emoji-check">✓</span>💍</button>
-                <button type="button" class="emoji-btn" onclick="selectEmoji('📿',this)"><span class="emoji-check">✓</span>📿</button>
+              <div class="emoji-category-tabs">
+                <button type="button" class="emoji-tab active" onclick="switchEmojiTab('tops',this)">상의</button>
+                <button type="button" class="emoji-tab" onclick="switchEmojiTab('bottoms',this)">하의</button>
+                <button type="button" class="emoji-tab" onclick="switchEmojiTab('shoes',this)">슈즈</button>
+                <button type="button" class="emoji-tab" onclick="switchEmojiTab('caps',this)">캡</button>
+                <button type="button" class="emoji-tab" onclick="switchEmojiTab('others',this)">그외</button>
+              </div>
+              <div class="emoji-panel active" id="emoji-panel-tops">
+                <div class="emoji-picker">
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👔',this)"><span class="emoji-check">✓</span>👔</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👗',this)"><span class="emoji-check">✓</span>👗</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👕',this)"><span class="emoji-check">✓</span>👕</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👚',this)"><span class="emoji-check">✓</span>👚</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('🧥',this)"><span class="emoji-check">✓</span>🧥</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('🥻',this)"><span class="emoji-check">✓</span>🥻</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👘',this)"><span class="emoji-check">✓</span>👘</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('🩱',this)"><span class="emoji-check">✓</span>🩱</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👙',this)"><span class="emoji-check">✓</span>👙</button>
+                </div>
+              </div>
+              <div class="emoji-panel" id="emoji-panel-bottoms">
+                <div class="emoji-picker">
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('🩳',this)"><span class="emoji-check">✓</span>🩳</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👖',this)"><span class="emoji-check">✓</span>👖</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('🩲',this)"><span class="emoji-check">✓</span>🩲</button>
+                </div>
+              </div>
+              <div class="emoji-panel" id="emoji-panel-shoes">
+                <div class="emoji-picker">
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👟',this)"><span class="emoji-check">✓</span>👟</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👠',this)"><span class="emoji-check">✓</span>👠</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👡',this)"><span class="emoji-check">✓</span>👡</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👢',this)"><span class="emoji-check">✓</span>👢</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('🥿',this)"><span class="emoji-check">✓</span>🥿</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👞',this)"><span class="emoji-check">✓</span>👞</button>
+                </div>
+              </div>
+              <div class="emoji-panel" id="emoji-panel-caps">
+                <div class="emoji-picker">
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👒',this)"><span class="emoji-check">✓</span>👒</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('🧢',this)"><span class="emoji-check">✓</span>🧢</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('🎩',this)"><span class="emoji-check">✓</span>🎩</button>
+                </div>
+              </div>
+              <div class="emoji-panel" id="emoji-panel-others">
+                <div class="emoji-picker">
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('🕶️',this)"><span class="emoji-check">✓</span>🕶️</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👜',this)"><span class="emoji-check">✓</span>👜</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👛',this)"><span class="emoji-check">✓</span>👛</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('💍',this)"><span class="emoji-check">✓</span>💍</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('📿',this)"><span class="emoji-check">✓</span>📿</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('🧣',this)"><span class="emoji-check">✓</span>🧣</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('🧦',this)"><span class="emoji-check">✓</span>🧦</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👝',this)"><span class="emoji-check">✓</span>👝</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('🎀',this)"><span class="emoji-check">✓</span>🎀</button>
+                  <button type="button" class="emoji-btn" onclick="selectEmoji('👓',this)"><span class="emoji-check">✓</span>👓</button>
+                </div>
               </div>
               <input type="hidden" id="p-emoji-selected" value="👗">
             </div>
@@ -261,6 +293,22 @@
       renderAdminProducts();
     });
 
+    // 이모지 카테고리 탭 전환
+    const emojiTabMap = {
+      '👔':'tops','👗':'tops','👕':'tops','👚':'tops','🧥':'tops','🥻':'tops','👘':'tops','🩱':'tops','👙':'tops',
+      '🩳':'bottoms','👖':'bottoms','🩲':'bottoms',
+      '👟':'shoes','👠':'shoes','👡':'shoes','👢':'shoes','🥿':'shoes','👞':'shoes',
+      '👒':'caps','🧢':'caps','🎩':'caps',
+      '🕶️':'others','👜':'others','👛':'others','💍':'others','📿':'others','🧣':'others','🧦':'others','👝':'others','🎀':'others','👓':'others'
+    };
+
+    function switchEmojiTab(category, tabBtn) {
+      document.querySelectorAll('.emoji-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.emoji-panel').forEach(p => p.classList.remove('active'));
+      tabBtn.classList.add('active');
+      document.getElementById('emoji-panel-' + category).classList.add('active');
+    }
+
     // 이모지 피커 열기/닫기
     function toggleEmojiPicker() {
       const collapse = document.getElementById('emoji-picker-collapse');
@@ -314,6 +362,11 @@
       document.querySelectorAll('.emoji-btn').forEach(b => {
         b.classList.toggle('selected', b.getAttribute('onclick').includes(`'${p.emoji}'`));
       });
+      const tab = emojiTabMap[p.emoji];
+      if (tab) {
+        const tabBtn = document.querySelector(`.emoji-tab[onclick*="${tab}"]`);
+        if (tabBtn) switchEmojiTab(tab, tabBtn);
+      }
       const preview = document.getElementById('p-image-preview');
       if (p.image) { preview.src = p.image; preview.style.display = 'block'; }
       else { preview.style.display = 'none'; }
